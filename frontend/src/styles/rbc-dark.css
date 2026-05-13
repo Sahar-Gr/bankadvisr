@@ -1,0 +1,112 @@
+/* ==== Calendrier 100% synchronisé avec ton Design System ==== */
+
+.rbc-calendar {
+  font-family: var(--font-family) !important;
+  background-color: var(--bg-card) !important; /* Utilise ton beau beige en clair, et ton gris foncé en sombre */
+  border-radius: var(--radius-lg) !important;
+  border: 1px solid var(--border-soft) !important;
+  overflow: hidden;
+  color: var(--text-primary) !important;
+  box-shadow: var(--shadow-card) !important; /* Ombre premium de ton thème */
+}
+
+/* Grille plus douce pour enlever l'effet "tableau Excel" */
+.rbc-time-content, 
+.rbc-header, 
+.rbc-month-view, 
+.rbc-day-bg, 
+.rbc-timeslot-group, 
+.rbc-time-header-gutter,
+.rbc-time-gutter .rbc-timeslot-group,
+.rbc-time-content > * + * {
+  border-color: var(--border-soft) !important; 
+}
+
+/* Ligne du bas de l'en-tête un peu plus marquée */
+.rbc-header {
+  border-bottom: 1px solid var(--border-strong) !important;
+}
+
+/* En-têtes des jours (Lun, Mar...) centrés et propres */
+.rbc-header {
+  background-color: var(--bg-surface) !important;
+  color: var(--text-secondary) !important;
+  padding: 12px 4px !important;
+  font-weight: 700 !important;
+  text-transform: capitalize !important;
+  font-size: 0.95rem !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 48px;
+}
+
+/* Gouttière des heures à gauche (08:00, 09:00...) */
+.rbc-time-gutter .rbc-timeslot-group {
+  background-color: var(--bg-surface) !important;
+  color: var(--text-muted) !important;
+  font-weight: 500;
+  font-size: 0.85rem;
+}
+
+/* Hauteurs standards */
+.rbc-timeslot-group { min-height: 52px !important; }
+.rbc-time-slot { min-height: 42px; }
+
+/* Colonne "Aujourd'hui" (Utilise bg-card-hover qui est parfait dans les 2 modes) */
+.rbc-time-view .rbc-day-slot.rbc-today,
+.rbc-time-view .rbc-time-column.rbc-today,
+.rbc-month-view .rbc-day-bg.rbc-today {
+  background-color: var(--bg-card-hover) !important;
+}
+
+/* Les événements (blocs de RDV/Créneaux) */
+.rbc-event {
+  border-radius: var(--radius-sm) !important;
+  border: none !important;
+  box-shadow: var(--shadow-soft) !important;
+  padding: 6px 8px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  line-height: 1.25 !important;
+  transition: transform 0.15s ease !important;
+}
+.rbc-event:hover {
+  transform: scale(1.02);
+  z-index: 5 !important;
+}
+
+/* Sélection de créneau (glisser la souris) : un beau voile doré */
+.rbc-slot-selection {
+  background-color: rgba(212, 175, 55, 0.15) !important;
+}
+
+/* Toolbar (Mois / Semaine / Précédent...) */
+.rbc-toolbar { margin-bottom: 16px !important; }
+.rbc-toolbar button {
+  color: var(--text-secondary) !important;
+  border: 1px solid var(--border-soft) !important; /* Bordure plus douce */
+  background: var(--bg-input) !important;
+  border-radius: var(--radius-sm) !important;
+  padding: 6px 12px !important;
+  margin: 0 2px !important;
+  transition: all 0.2s ease !important;
+}
+.rbc-toolbar button:hover {
+  background: var(--bg-muted) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--brand) !important;
+}
+.rbc-toolbar button.rbc-active {
+  background: var(--brand) !important;
+  color: #111 !important;
+  border-color: var(--brand) !important;
+  font-weight: 600 !important;
+}
+
+/* Texte central "mai 04 - 10" */
+.rbc-toolbar-label {
+  color: var(--text-primary) !important;
+  font-weight: 600 !important;
+}

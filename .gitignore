@@ -1,0 +1,21 @@
+# React
+node_modules/
+frontend/node_modules/
+.env
+
+# Java / Gradle
+.gradle/
+build/
+backend/build/
+bin/
+
+# Sécurité & Uploads
+serviceAccountKey.json
+backend/serviceAccountKey.json
+backend/src/main/resources/firebase-service-account.json
+uploads/
+backend/uploads/
+
+# Divers
+.DS_Store
+.vscode/
