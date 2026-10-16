@@ -1,0 +1,94 @@
+﻿{
+    "id":  "83a068e7-a288-4102-ba71-2cb136672515",
+    "name":  "Local",
+    "values":  [
+                   {
+                       "key":  "base_url",
+                       "value":  "http://localhost:8080",
+                       "type":  "default",
+                       "enabled":  true
+                   },
+                   {
+                       "key":  "token_admin",
+                       "value":  "",
+                       "type":  "default",
+                       "enabled":  true
+                   },
+                   {
+                       "key":  "token_client",
+                       "value":  "",
+                       "type":  "default",
+                       "enabled":  true
+                   },
+                   {
+                       "key":  "token_consultante",
+                       "value":  "",
+                       "type":  "default",
+                       "enabled":  true
+                   },
+                   {
+                       "key":  "expected_status",
+                       "value":  "",
+                       "type":  "default",
+                       "enabled":  true
+                   },
+                   {
+                       "key":  "project_id",
+                       "value":  "",
+                       "type":  "default",
+                       "enabled":  true
+                   },
+                   {
+                       "key":  "client_uid",
+                       "value":  "",
+                       "type":  "default",
+                       "enabled":  true
+                   },
+                   {
+                       "key":  "consultante_uid",
+                       "value":  "",
+                       "type":  "default",
+                       "enabled":  true
+                   },
+                   {
+                       "key":  "dyn_titre",
+                       "value":  "",
+                       "type":  "default",
+                       "enabled":  true
+                   },
+                   {
+                       "key":  "dyn_desc",
+                       "value":  "",
+                       "type":  "default",
+                       "enabled":  true
+                   },
+                   {
+                       "key":  "admin_uid",
+                       "value":  "",
+                       "type":  "default",
+                       "enabled":  true
+                   },
+                   {
+                       "key":  "client_role",
+                       "value":  "",
+                       "type":  "default",
+                       "enabled":  true
+                   },
+                   {
+                       "key":  "consultante_role",
+                       "value":  "",
+                       "type":  "default",
+                       "enabled":  true
+                   },
+                   {
+                       "key":  "token",
+                       "value":  "",
+                       "type":  "any",
+                       "enabled":  true
+                   }
+               ],
+    "color":  null,
+    "_postman_variable_scope":  "environment",
+    "_postman_exported_at":  "2026-10-16T13:20:58.509Z",
+    "_postman_exported_using":  "Postman/12.32.4"
+}

@@ -34,6 +34,8 @@ public class SecurityConfig {
           // ✅ Endpoints publics
           .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
           .requestMatchers(HttpMethod.POST, "/api/preview").permitAll()
+          .requestMatchers(HttpMethod.GET, "/api/health").permitAll()
+          .requestMatchers(HttpMethod.GET, "/api/ping").permitAll()
           .requestMatchers("/error").permitAll()
 
           // 🔥 NOUVEAU : Autoriser la consultante à accéder aux ressources partagées

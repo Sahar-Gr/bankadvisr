@@ -1,0 +1,865 @@
+{
+  "info": {
+    "_postman_id": "c47bdac5-9f88-4c3e-9f2f-b1aa1858ea1a",
+    "name": "Backend API – Spring Boot – Local",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "50958318",
+    "_collection_link": "https://go.postman.co/collection/50958318-c47bdac5-9f88-4c3e-9f2f-b1aa1858ea1a?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "01-Auth",
+      "item": [
+        {
+          "name": "POST – Login (Admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Login success (200)\", () => {\r\n  pm.expect(pm.response.code).to.eql(200);\r\n});\r\n\r\nconst json = pm.response.json();\r\n\r\n// adapte selon ton backend : token dans \"message\" (chez toi c'est souvent message)\r\npm.test(\"Token exists\", () => {\r\n  pm.expect(json).to.have.property(\"message\");\r\n  pm.expect(json.message).to.be.a(\"string\").and.not.empty;\r\n});\r\n\r\n// stock token\r\npm.environment.set(\"token_admin\", json.message);\r\n\r\n// stock uid admin (optionnel)\r\nif (json.uid) pm.environment.set(\"admin_uid\", json.uid);\r\n"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"test@test.com\",\r\n    \"password\": \"123456\"\r\n}   ",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST - Login(Client)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Login OK (200)\", () => pm.expect(pm.response.code).to.eql(200));\r",
+                  "\r",
+                  "const json = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Token exists\", () => {\r",
+                  "  pm.expect(json).to.have.property(\"message\");\r",
+                  "  pm.expect(json.message).to.be.a(\"string\").and.not.empty;\r",
+                  "});\r",
+                  "\r",
+                  "pm.environment.set(\"token_client\", json.message);\r",
+                  "\r",
+                  "if (json.uid) pm.environment.set(\"client_uid\", json.uid);\r",
+                  "if (json.role) pm.environment.set(\"client_role\", json.role);\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token_client}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"sousou@client.com\",\r\n    \"password\": \"sahar123\"\r\n}   "
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST - Login(Consultante)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Login OK (200)\", () => pm.expect(pm.response.code).to.eql(200));\r",
+                  "\r",
+                  "const json = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Token exists\", () => {\r",
+                  "  pm.expect(json).to.have.property(\"message\");\r",
+                  "  pm.expect(json.message).to.be.a(\"string\").and.not.empty;\r",
+                  "});\r",
+                  "\r",
+                  "pm.environment.set(\"token_consultante\", json.message);\r",
+                  "\r",
+                  "if (json.uid) pm.environment.set(\"consultante_uid\", json.uid);\r",
+                  "if (json.role) pm.environment.set(\"consultante_role\", json.role);\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token_consultante}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"nejiba@consultante.com\",\r\n    \"password\": \"nejiba123\"\r\n}   "
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "token",
+            "value": "{{token}}",
+            "type": "string"
+          }
+        ]
+      },
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              ""
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              ""
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "03-Projects",
+      "item": [
+        {
+          "name": "GET – List projects (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/admin/projects",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "projects"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST – Create project (Admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201 Created\", function () {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Project has an ID\", function () {\r",
+                  "    const json = pm.response.json();\r",
+                  "    pm.expect(json.id).to.be.a(\"string\").and.not.empty;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Project ID is saved\", function () {\r",
+                  "    const json = pm.response.json();\r",
+                  "\r",
+                  "    if (pm.response.code === 201 && json.id) {\r",
+                  "        pm.environment.set(\"project_id\", json.id);\r",
+                  "    }\r",
+                  "\r",
+                  "    pm.expect(pm.environment.get(\"project_id\")).to.eql(json.id);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"clientUid\": \"{{client_uid}}\",\r\n  \"consultanteUid\": \"{{consultante_uid}}\",\r\n  \"titre\": \"{{dyn_titre}}\",\r\n  \"description\": \"{{dyn_desc}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/admin/projects",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "projects"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT – Update project (Admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Titre updated correctly\", function () {\r",
+                  "    const json = pm.response.json();\r",
+                  "    pm.expect(json.titre).to.eql(\"Updated Project\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Description updated correctly\", function () {\r",
+                  "    const json = pm.response.json();\r",
+                  "    pm.expect(json.description).to.eql(\"Updated via PUT\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"titre\": \"Updated Project\",\r\n  \"description\": \"Updated via PUT\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/admin/projects/{{project_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "projects",
+                "{{project_id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PATCH – Update project (Admin)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"avancement\": 60\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/admin/projects/{{project_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "projects",
+                "{{project_id}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "04-Admin",
+      "item": [
+        {
+          "name": "GET – List projects (Consultante)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "console.log(\"Request:\", pm.info.requestName);\r",
+                  "console.log(\r",
+                  "    \"Consultante token exists:\",\r",
+                  "    !!pm.environment.get(\"token_consultante\")\r",
+                  ");\r",
+                  "console.log(\r",
+                  "    \"Token length:\",\r",
+                  "    (pm.environment.get(\"token_consultante\") || \"\").length\r",
+                  ");"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token_consultante}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-Demo-Uid",
+                "value": "JGiS8xQ6tIXC0a30e5fQy4G9V02",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/consultante/projects?statut=en_cours",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "consultante",
+                "projects"
+              ],
+              "query": [
+                {
+                  "key": "statut",
+                  "value": "en_cours"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "E2E",
+      "item": [
+        {
+          "name": "POST – Login (Admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const json = pm.response.json();\r",
+                  "pm.environment.set(\"token_admin\", json.message);\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"test@test.com\",\r\n    \"password\": \"123456\"\r\n}   ",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST nominal (create project)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const json = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Project id exists\", () => {\r",
+                  "  pm.expect(json.id).to.be.a(\"string\").and.not.empty;\r",
+                  "});\r",
+                  "\r",
+                  "// IMPORTANT: bien dans l'environnement\r",
+                  "pm.environment.set(\"project_id\", json.id);\r",
+                  "\r",
+                  "// debug\r",
+                  "console.log(\"Saved project_id:\", pm.environment.get(\"project_id\"));\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const stamp = Date.now();\r",
+                  "pm.environment.set(\"dyn_titre\", `Projet auto ${stamp}`);\r",
+                  "pm.environment.set(\"dyn_desc\", `Créé via Postman à ${new Date().toISOString()}`);\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token_admin}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"clientUid\": \"{{client_uid}}\",\r\n  \"consultanteUid\": \"{{consultante_uid}}\",\r\n  \"titre\": \"{{dyn_titre}}\",\r\n  \"description\": \"{{dyn_desc}}\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/admin/projects",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "projects"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET nominal 200 by id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.environment.set(\"expected_status\", \"200\");\r",
+                  "\r",
+                  "const expected = parseInt(pm.environment.get(\"expected_status\") || \"200\", 10);\r",
+                  "\r",
+                  "pm.test(`Status code is ${expected}`, function () {\r",
+                  "  pm.response.to.have.status(expected);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response time < 1000 ms\", function () {\r",
+                  "  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "  pm.response.to.be.json;\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token_admin}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Demo-Uid",
+                "value": "JGiS8xQ6tIXC0a30e5fQy4G9V02",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/admin/projects/{{project_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "projects",
+                "{{project_id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PATCH nominal",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status is 200\", () => {\r",
+                  "  pm.expect(pm.response.code, pm.response.text()).to.eql(200);\r",
+                  "});\r",
+                  "\r",
+                  "const json = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Response has avancement\", () => {\r",
+                  "  pm.expect(json).to.have.property(\"avancement\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Avancement updated to 50\", () => {\r",
+                  "  pm.expect(json.avancement).to.eql(50);\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token_admin}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"avancement\" : 50\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/admin/projects/{{project_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "projects",
+                "{{project_id}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "05-Security",
+      "item": [
+        {
+          "name": "01-No Auth",
+          "item": [
+            {
+              "name": "GET – List projects (Admin) Copy",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Access denied without token\", () => {\r",
+                      "  pm.expect(pm.response.code).to.be.oneOf([401, 403]);\r",
+                      "});\r",
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token_client}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/admin/projects",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "admin",
+                    "projects"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          "const requestName = pm.info.requestName;\r",
+          "\r",
+          "if (requestName.includes(\"Admin\") || requestName.includes(\"nominal\")) {\r",
+          "    pm.environment.set(\"token\", pm.environment.get(\"token_admin\"));\r",
+          "} else if (requestName.includes(\"Client\")) {\r",
+          "    pm.environment.set(\"token\", pm.environment.get(\"token_client\"));\r",
+          "} else if (requestName.includes(\"Consultante\")) {\r",
+          "    pm.environment.set(\"token\", pm.environment.get(\"token_consultante\"));\r",
+          "}"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "requests": {},
+        "exec": [
+          "",
+          "const status = pm.response.code;",
+          "const requestName = pm.info.requestName;",
+          "",
+          "// Les erreurs 4xx ne sont acceptées que pour les tests",
+          "// dont le nom indique explicitement un accès refusé ou une erreur attendue.",
+          "const expectedError =",
+          "    /Access denied|No Auth|Forbidden|Unauthorized|Invalid|Missing|Not Found/i.test(requestName)",
+          "    || requestName.includes(\"Copy\");",
+          "",
+          "pm.test(\"Status code is expected\", function () {",
+          "    if (expectedError) {",
+          "        pm.expect(status).to.be.within(400, 499);",
+          "    } else {",
+          "        pm.expect(status).to.be.within(200, 299);",
+          "    }",
+          "});",
+          "",
+          "pm.test(\"Response time < 5000ms\", function () {",
+          "    pm.expect(pm.response.responseTime).to.be.below(5000);",
+          "});",
+          "",
+          "pm.test(\"Response is JSON when body exists\", function () {",
+          "    if (pm.response.text()) {",
+          "        pm.response.to.be.json;",
+          "    }",
+          "});",
+          ""
+        ]
+      }
+    }
+  ]
+}
