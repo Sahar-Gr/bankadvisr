@@ -19,3 +19,23 @@ backend/uploads/
 # Divers
 .DS_Store
 .vscode/
+
+
+# Environment files
+.env.*
+!.env.example
+
+# Frontend build
+frontend/dist/
+frontend/.next/
+
+# IDE
+.idea/
+
+# OS
+Thumbs.db
+
+# Local configuration and reports (if sensitive)
+application-local.properties
+
+tests/Postman/Reports/
